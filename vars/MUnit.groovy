@@ -1,10 +1,4 @@
-import hudson.model.*
-import hudson.EnvVars
-import groovy.json.JsonSlurperClassic
-import groovy.json.JsonBuilder
-import groovy.json.JsonOutput
-import groovy.json.*
-import java.net.URL
+
 def coveragepercentage
 def testFunc(){
 
@@ -23,19 +17,4 @@ def testFunc(){
            currentBuild.result = 'FAILURE'
                 }
 }
-node {
-stage('build') {
-            script {
-			sh 'mvn clean package'
-         }
-}
-stage('Json coverage') {
 
-  testFunc()
-}
-stage('MUnit Test Report') {
-                script {
-              publishHTML(target:[allowMissing: false,alwaysLinkToLastBuild: true,keepAll: true,reportDir: 'target/site/munit/coverage',reportFiles: 'summary.html',reportName: 'MUnit Test Report',reportTitles: 'MUnit Test Coverage Report'])
-              }
-              }
-}
